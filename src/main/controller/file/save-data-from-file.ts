@@ -1,8 +1,9 @@
-import { SaveDataFromFileService } from '../../../data/service';
+import { SaveDataFromFileService, SaveDataService } from '../../../data/service';
 import { SaveDataFromFilePresentation } from '../../../presentation/controller'
 
 export const saveDataFromFile = async (req: any) => {
-  const service = new SaveDataFromFileService()
+  const saveData = new SaveDataService()
+  const service = new SaveDataFromFileService(saveData)
   const controller = new SaveDataFromFilePresentation(service)
 
   return controller.handle(req)
