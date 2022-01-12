@@ -3,21 +3,24 @@ import { readFile } from "fs";
 import { SaveDataFromFileUseCase } from "src/domain";
 import { SaveDataService } from "./save-data";
 
-const caminhoArquivos = 'C:/Users/bamac/Documents/Cursos/read-file-clean-architeture/files/test.txt'
 export class SaveDataFromFileService implements SaveDataFromFileUseCase {
   constructor(
     private saveData: SaveDataService
   ) { }
 
   async save(params: SaveDataFromFileUseCase.Params): Promise<void> {
-    await this.readTextFile(caminhoArquivos, this.saveData)
+
+    if (params.path && params.name) {
+      const pathFile = params.path! + params.name!
+      await this.readTextFile(pathFile, this.saveData, params.name)
+    }
   }
 
-  private async readTextFile(caminhoArquivos: string, sd: SaveDataService) {
-    readFile(caminhoArquivos, async function (err, data) {
+  private async readTextFile(pathFile: string, sd: SaveDataService, fileName: string) {
+    readFile(pathFile, async function (err, data) {
       if (err) throw err;
       const arr = data.toString().replace(/\t/g, ';').split('\n');
-      await sd.save(arr)
+      await sd.save(arr, fileName)
     });
   }
 }

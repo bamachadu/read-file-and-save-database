@@ -9,6 +9,8 @@ export class SaveDataFromFilePresentation implements Controller {
   async handle(req: HttpRequest): Promise<HttpResponse> {
     try {
       const params = {
+        name: req.body.name,
+        path: req.body.path,
         type: {
           description: req.body.descriptionFile
         },
