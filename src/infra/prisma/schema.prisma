@@ -6,5 +6,23 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = "postgresql://root:root@localhost:5432/database?schema=public"
+}
+
+model fileProps {
+  id         Int      @id @default(autoincrement())
+  dateImport DateTime @db.Date  @default(now())
+  fileName   String
+  content01  String?
+  content02  String?
+  content03  String?
+  content04  String?
+  content05  String?
+  content06  String?
+  content07  String?
+  content08  String?
+  content09  String?
+  content10  String?
+
+  @@unique([dateImport, fileName])
 }
