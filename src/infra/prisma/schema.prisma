@@ -1,28 +1,18 @@
 generator client {
   provider        = "prisma-client-js"
-  binaryTargets   = ["native", "rhel-openssl-1.0.x"]
   previewFeatures = ["interactiveTransactions"]
+  binaryTargets   = ["native", "rhel-openssl-1.0.x"]
 }
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://root:root@localhost:5432/database?schema=public"
+  url      = "postgresql://root:root@localhost:5439/database?schema=public"
 }
 
 model fileProps {
   id         Int      @id @default(autoincrement())
-  dateImport DateTime @db.Date  @default(now())
+  dateImport DateTime @db.Timestamp(6)
   fileName   String
-  content01  String?
-  content02  String?
-  content03  String?
-  content04  String?
-  content05  String?
-  content06  String?
-  content07  String?
-  content08  String?
-  content09  String?
-  content10  String?
-
-  @@unique([dateImport, fileName])
+  line       Int?
+  content    Json?
 }
