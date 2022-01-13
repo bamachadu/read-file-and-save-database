@@ -19,7 +19,7 @@ export class SaveDataFromFileService implements SaveDataFromFileUseCase {
   private async readTextFile(pathFile: string, sd: SaveDataService, fileName: string) {
     readFile(pathFile, async function (err, data) {
       if (err) throw err;
-      const arr = data.toString().replace(/\t/g, ';').split('\n');
+      const arr = data.toString().replace(/\t/g, '","').split('\n');
       await sd.save(arr, fileName)
     });
   }
