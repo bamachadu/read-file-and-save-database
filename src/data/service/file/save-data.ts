@@ -7,6 +7,7 @@ export class SaveDataService {
 
   async save(arr: string[], fileName: string): Promise<void> {
     let linesContent = []
+    let line: number = 0
 
     for (let i of arr) {
       const transformArrayObjectContent = Object.assign({}, JSON.parse({ obj: ('["' + i + '"]').replace('\r', '') }.obj));
@@ -16,7 +17,9 @@ export class SaveDataService {
 
     const props = linesContent.map(lineContent => ({
       content: lineContent,
+      dateImport: new Date(),
       fileName,
+      line: line++
     }))
 
     await this.repository.save(props)

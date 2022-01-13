@@ -9,14 +9,10 @@ export class SaveDataFromFileService implements SaveDataFromFileUseCase {
   ) { }
 
   async save(params: SaveDataFromFileUseCase.Params): Promise<void> {
+    const pathFile: string = params.path! + params.name!
+    const sd = this.saveData
+    const fileName = params.name!
 
-    if (params.path && params.name) {
-      const pathFile = params.path! + params.name!
-      await this.readTextFile(pathFile, this.saveData, params.name)
-    }
-  }
-
-  private async readTextFile(pathFile: string, sd: SaveDataService, fileName: string) {
     readFile(pathFile, async function (err, data) {
       if (err) throw err;
       const arr = data.toString().replace(/\t/g, '","').split('\n');
